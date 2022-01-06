@@ -1,4 +1,6 @@
 <?php
+// dbconnect.php
+
     $servername='localhost';
     $username='root';
     $password='';
