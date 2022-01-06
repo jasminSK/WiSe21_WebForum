@@ -20,12 +20,15 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) {
     echo "admin: " . $_SESSION['is_admin'] . "<br>";
     echo "<hr>";
 
-    
+
+
+    // TODO: text fields for new forum posts
+    // -> SQL: INSERT INTO post ... (see register.php)
     echo '
     <form action="" method="post">
-        <input type="text" id="username" name="username" value="" placeholder="Title" required><br>
-        <input type="password" id="password" name="password" value="" placeholder="Text" required><br>
-        <input type="submit" name="login" value="Sumbit">
+        <input type="text" id="username" name="title" value="" placeholder="Title" required><br>
+        <input type="text" id="text" name="text" value="" placeholder="Text" required><br>
+        <input type="submit" name="createpost" value="Create Post">
     </form>
     ';
 
