@@ -22,7 +22,7 @@ if(isset($_POST['register']))
 
 // html: register
 echo '
-    <form action="" method="post">
+    <form action="" class="login_register" method="post">
         <!--<h1>Register</h1>-->
         <input type="text" id="username" name="username" value="" placeholder="Username" required><br>
         <input type="password" id="password" name="password" value="" placeholder="Password" required><br>
