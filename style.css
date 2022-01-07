@@ -7,7 +7,7 @@ html {
     font-family: sans-serif;
     height: 100%;
     width: 100%;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 body {
@@ -15,7 +15,7 @@ body {
     color: #555;
 }
 
-form{
+form.login_register{
     border-radius: 25px;
     text-align: center;
     background-color: #FFF;
@@ -25,6 +25,7 @@ form{
     margin: 50px;
     width: 250px;
 }
+
 
 input {
     border-radius: 10px;
@@ -74,6 +75,10 @@ h3 {
     line-height: 1.5;
 }
 
+h4{
+    color: #00025a;
+}
+
 hr{
     margin-top: 10px;
     margin-bottom: 15px;
@@ -116,30 +121,30 @@ ul {
     position: fixed;
     top: 0;
     width: 100%;
-  }
+}
   
-  li {
+li {
     float: right;
-  }
+}
   
-  li a {
+li a {
     display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-  }
+}
   
-  li a:hover:not(.active) {
+li a:hover:not(.active) {
     background-color: #111;
-  }
+}
   
-  .active {
+.active {
     background-color: #04AA6D;
-  }
+}
   
   
-  .button {
+.button {
     background-color: rgb(0, 166, 255);
     border-radius: 10px;
     border: none;
@@ -151,4 +156,47 @@ ul {
     font-size: 1.1em;
     
     cursor: pointer;
-    }
+}
+
+div.window{
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.forum{
+    height: 200px;
+}
+
+.scroll{
+    overflow-y: scroll;
+}
+
+.left{
+    float: left;
+    width: 50%;
+}
+
+.right{
+    float: right;
+    width: 50%;
+}
+
+form.submitpost{
+    color: black;
+}
+
+input.createpost{
+    color:rgb(0, 166, 255);
+}
+
+div.post{
+    width: 100%;
+    padding: 12px;
+    padding-bottom: 30px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+    height: auto;
+}

@@ -48,7 +48,7 @@ if(isset($_POST['login']))
 
 // html: login
 echo '
-    <form action="" method="post">
+    <form class="login_register" action="" method="post">
         <input type="text" id="username" name="username" value="" placeholder="Username" required><br>
         <input type="password" id="password" name="password" value="" placeholder="Password" required><br>
         <input type="submit" name="login" value="Log In">
