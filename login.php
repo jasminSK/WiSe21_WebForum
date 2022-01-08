@@ -38,7 +38,7 @@ if(isset($_POST['login']))
         }
     }
     else {
-        echo "ERROR: Could not able to execute<br>$sql. " .mysqli_error($link);
+        echo "ERROR: Could not execute<br>$sql. " .mysqli_error($link);
     }
     mysqli_close($conn);
 
