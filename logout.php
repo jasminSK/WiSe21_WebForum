@@ -6,8 +6,13 @@ session_destroy(); //remove sid-login from server storage
 session_write_close();
 
 include 'header.php';
-echo '<br>You have successfully been logged out.';
+echo '
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+  <strong>Success!</strong> You have been logged out.
+</div>
+';
 include 'footer.php';
 
-header('Refresh: 1; URL = ./');
+header('Refresh: 2; URL = ./');
 ?>

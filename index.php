@@ -24,7 +24,12 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
         $author = $_SESSION['user_id'];
         $sql = "INSERT INTO post (title, content, author) VALUES ('$title','$text', '$author');";
         if (mysqli_query($conn, $sql)) {
-            echo "<h2>Post has been sent</h2><br>";
+            echo '
+            <div class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+                <strong>Success!</strong> Post has been sent.
+            </div>
+            ';
         } else {
             echo "SQL:<br>".$sql . "<h3>Error:</h3><br>" .mysqli_error($conn); // for security remove error message
         }

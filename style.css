@@ -79,7 +79,9 @@ h3 {
 }
 
 h4{
+    font-size: 1.2em;
     color: #00025a;
+    padding-bottom: 5px;
 }
 
 hr{
@@ -199,4 +201,24 @@ input.createpost{
 }
 input.createpost:hover{
     background-color: #e07;
+}
+
+/* alertboxes */
+.alert {
+    padding: 20px;
+    background-color: #0A6;
+    border-radius: 10px;
+    color: white;
+}
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+}  
+.closebtn:hover {
+    color: black;
 }
