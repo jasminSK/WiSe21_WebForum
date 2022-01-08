@@ -4,11 +4,11 @@
 include_once 'dbconnect.php';
 include 'header.php';
 
-//if sid exists and login for sid exists
-session_start(); //gets session id 
-if (session_id() == '' || !isset($_SESSION['signed_in'])) {
-    echo'You are currently not logged in login <a href="./login.php">here</a>.';
-} else {
+// if sid exists and login for sid exists
+session_start(); // gets session id 
+if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in 
+    echo'<br>You are currently not logged in login <a href="./login.php">here</a>.';
+} else { // if logged in 
     echo "<div class=window>";
     echo "<h4>Account:</h4>";
     echo "username: " . $_SESSION['username'] . "<br>";
@@ -33,24 +33,23 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) {
     }
 
     // Selects all posts
-    $sql = "SELECT * FROM post ORDER BY post_id DESC";
+    // TODO: add upvotes / downvotes together
+    $sql = "SELECT post.creation_date, user.username, post.title, post.content FROM post LEFT JOIN user ON post.author = user.user_id ORDER BY creation_date DESC;";
     // Displays all posts and puts it into a window
     if ($res = mysqli_query($conn, $sql)) {
         echo "<div class='window scroll forum'>";
         // Goes trough all rows and creates the post bubbles
         while ($row = mysqli_fetch_array( $res, MYSQLI_ASSOC))
         {   
+            $creation_date = $row['creation_date'];
+            $username = $row['username'];
             $title= $row['title'];
             $content = $row['content'];
-            $creation_date = $row['creation_date'];
-            $author_id = $row['author'];
-            $sql = "SELECT username FROM user WHERE user.user_id=$author_id;";
-            $result = mysqli_query($conn, $sql);
-            $row = mysqli_fetch_array( $result, MYSQLI_ASSOC);
-            $username = $row['username'];
             
             echo "<div class='post'>";
-            // delete post if admin
+
+            // TODO: delete post if admin
+            // DELETE FROM post WHERE post.post_id = $post_id;
             if ($_SESSION['is_admin']){
                 echo '<a href="delete"><i class="material-icons">delete</i></a>';
             }
@@ -58,16 +57,17 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) {
                 echo "<div>$content</div>";
                 echo "<div class='left'>By $username</div>";
                 echo "<div class='right'>$creation_date</div>";
-            echo "</div>";
+            echo "</div>"; // end of post
             echo "<br>";
         }
-        echo "</div>";
+        echo "</div>"; // end of forum scroll
         mysqli_free_result($res);
 
     }else {
         echo "ERROR: Could not able to execute<br>";
     }
     
+
     // HTML - form for writing and sending post
     echo'
     <div class="window">
@@ -78,10 +78,6 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) {
     </form>
     </div>';
 
-
-
-  
-    
 }
 
 include 'footer.php';
