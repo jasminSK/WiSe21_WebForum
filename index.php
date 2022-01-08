@@ -26,18 +26,18 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) {
         $author = $_SESSION['user_id'];
         $sql = "INSERT INTO post (title, content, author) VALUES ('$title','$text', '$author');";
         if (mysqli_query($conn, $sql)) {
-            echo "Post has been sent<br>";
+            echo "<h2>Post has been sent</h2><br>";
         } else {
-            echo "SQL:<br>".$sql . "<br><br>Error:<br>" .mysqli_error($conn);
+            echo "SQL:<br>".$sql . "<h3>Error:</h3><br>" .mysqli_error($conn); // for security remove error message
         }
     }
 
-    //Selects all posts
+    // Selects all posts
     $sql = "SELECT * FROM post ORDER BY post_id DESC";
-    //Displays all posts and puts it into a window
+    // Displays all posts and puts it into a window
     if ($res = mysqli_query($conn, $sql)) {
         echo "<div class='window scroll forum'>";
-        //Goes trough all rows and creates the post bubbles
+        // Goes trough all rows and creates the post bubbles
         while ($row = mysqli_fetch_array( $res, MYSQLI_ASSOC))
         {   
             $title= $row['title'];
@@ -50,6 +50,10 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) {
             $username = $row['username'];
             
             echo "<div class='post'>";
+            // delete post if admin
+            if ($_SESSION['is_admin']){
+                echo '<a href="delete"><i class="material-icons">delete</i></a>';
+            }
                 echo "<h4>$title</h4>";
                 echo "<div>$content</div>";
                 echo "<div class='left'>By $username</div>";
@@ -64,7 +68,7 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) {
         echo "ERROR: Could not able to execute<br>";
     }
     
-    //HTML - form for writing and sending post
+    // HTML - form for writing and sending post
     echo'
     <div class="window">
     <form action="" method="post" id="submitpost">
