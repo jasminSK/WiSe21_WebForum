@@ -9,12 +9,6 @@ session_start(); // gets session id
 if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in 
     echo'<br>You are currently not logged in login <a href="./login.php">here</a>.';
 } else { // if logged in 
-    echo "<h4>Account:</h4>";
-    echo "username: " . $_SESSION['username'] . "<br>";
-    echo "user_id: " . $_SESSION['user_id'] . "<br>";
-    echo "logged_in: " . $_SESSION['signed_in'] . "<br>";
-    echo "admin: " . $_SESSION['is_admin'] . "<br>";
-    echo "<hr>";
 
     // action: create post
     if(isset($_POST['createpost']))
@@ -48,9 +42,11 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
 
     // Selects all posts
     $sql = "SELECT post.creation_date, post.post_id, user.username, post.title, post.content FROM post LEFT JOIN user ON post.author = user.user_id ORDER BY creation_date DESC;";
+
     // Displays all posts
     if ($res = mysqli_query($conn, $sql)) {
         echo "<div class='window scroll forum'>";
+
         // Goes trough all rows and creates the post bubbles
         while ($row = mysqli_fetch_array( $res, MYSQLI_ASSOC))
         {   
@@ -63,9 +59,11 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
             echo "<div class='post'>";
 
             echo "<div class='left'>";
+
             // Vote
             // TODO: implement upvote downvote
             // SELECT SUM(`vote`) FROM `user_post` WHERE `post_id` = '1'
+            // Does not work with href or only php, must use jquery or javascript or both to execute event
             $sql_vote = "SELECT SUM(vote) AS 'votes' FROM user_post WHERE post_id = $post_id;";
             $result = mysqli_query($conn, $sql_vote);
             $row = mysqli_fetch_array( $result, MYSQLI_ASSOC);
@@ -80,8 +78,9 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
 
             // DELETE FROM post WHERE post.post_id = $post_id;
             // TODO: delete post if admin
+            // Does not work with href or only php, must use jquery or javascript or both to execute event
             if ($_SESSION['is_admin']){
-                echo '<br><a href="delete"><i class="material-icons">delete</i></a><br>';
+                echo '<br><button type="button" name="click" onclick="clickMe"><i class="material-icons">delete</i></button><br>';      
             }
             echo "</div>"; // end of left
 

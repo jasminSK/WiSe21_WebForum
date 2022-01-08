@@ -179,6 +179,7 @@ div.post{
 div.left{
     float: left;
     width: 5%;
+    text-align: center;
 }
 
 .right{

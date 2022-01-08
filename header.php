@@ -22,5 +22,6 @@
             <li><a class="item" href="./logout.php">logout</a></li>
             <li><a class="item" href="./register.php">register</a></li>
             <li><a class="item" href="./login.php">login</a></li>
+            <li><a class="item" href="./account.php">account</a></li>
         </ul>
     <div id="content">
