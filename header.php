@@ -19,9 +19,9 @@
     <div id="wrapper">
         <ul>
             <li style="float:left"><a class="item" href="./index.php">Home</a></li>
+            <li style="float:left"><a class="item" href="./account.php">Account</a></li>
             <li><a class="item" href="./logout.php">logout</a></li>
             <li><a class="item" href="./register.php">register</a></li>
             <li><a class="item" href="./login.php">login</a></li>
-            <li><a class="item" href="./account.php">account</a></li>
         </ul>
     <div id="content">

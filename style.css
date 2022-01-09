@@ -90,6 +90,14 @@ hr{
     border: 1px solid #ccc;
 }
 
+img{
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+}
+img:hover {
+    box-shadow: 0 0 3px 1px rgba(255, 0, 136, 0.5);
+  }
 
 
 
@@ -140,6 +148,14 @@ li a:hover:not(.active) {
     float: left;
     text-align: left;
     width: 95%;
+}
+
+.account{
+    background-color: #333;
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px;
+    width: auto;
 }
   
 /* button below login/registration */
