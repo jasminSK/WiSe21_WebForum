@@ -29,6 +29,16 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
         }
     }
 
+    // Delete specific post
+    if (isset($_GET['action']) & isset($_GET['post'])) {
+        if ($_SESSION['is_admin']){
+            $action = $_GET['action'];
+            $post = $_GET['post'];
+            $sql_action = "DELETE FROM `post` WHERE `post`.`post_id` = $post";
+            mysqli_query($conn, $sql_action);
+        }               
+    }
+
         // HTML - form for writing and sending post
         echo'
         <div class="createpost">
@@ -62,7 +72,6 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
 
             // Vote
             // TODO: implement upvote downvote
-            // SELECT SUM(`vote`) FROM `user_post` WHERE `post_id` = '1'
             // Does not work with href or only php, must use jquery or javascript or both to execute event
             $sql_vote = "SELECT SUM(vote) AS 'votes' FROM user_post WHERE post_id = $post_id;";
             $result = mysqli_query($conn, $sql_vote);
@@ -76,11 +85,9 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
             }
             echo '<br><a href="expand_less"><i class="material-icons">expand_more</i></a><br>';
 
-            // DELETE FROM post WHERE post.post_id = $post_id;
-            // TODO: delete post if admin
-            // Does not work with href or only php, must use jquery or javascript or both to execute event
+            // delete post
             if ($_SESSION['is_admin']){
-                echo '<br><button type="button" name="click" onclick="clickMe"><i class="material-icons">delete</i></button><br>';      
+                echo "<br><a href='?action=delete&post=$post_id'><i class='material-icons'>delete</i></a><br>";      
             }
             echo "</div>"; // end of left
 
