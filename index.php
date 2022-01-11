@@ -29,14 +29,48 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
         }
     }
 
-    // Delete specific post
+    
     if (isset($_GET['action']) & isset($_GET['post'])) {
-        if ($_SESSION['is_admin']){
-            $action = $_GET['action'];
-            $post = $_GET['post'];
-            $sql_action = "DELETE FROM `post` WHERE `post`.`post_id` = $post";
-            mysqli_query($conn, $sql_action);
-        }               
+        $action = $_GET['action'];
+        $post = $_GET['post'];
+        $user = $_SESSION['user_id']; // is needed because SQL ''
+        switch ($action){
+            case 'delete': // delete specific post
+                if ($_SESSION['is_admin']){
+                    $sql_delete = "DELETE FROM `post` WHERE `post`.`post_id` = $post";
+                    mysqli_query($conn, $sql_delete);
+                }
+                break;
+
+            // TODO: scroll back to post
+            case 'upvote': // upvote specific post
+                // check if user already voted:
+                $sql_check = "SELECT `vote` FROM `user_post` WHERE `user_id` = '$user' AND `post_id` = '$post'";
+                if($res = mysqli_query($conn, $sql_check)){
+                    if (mysqli_num_rows($res) == 0) { // if there is no upvote yet
+                        $sql_vote = "INSERT INTO `user_post` (`user_post_id`, `user_id`, `post_id`, `vote`) VALUES (NULL, '$user', '$post', '+1')";
+                    }else{
+                        $sql_vote = "UPDATE `user_post` SET `vote` = '+1' WHERE `user_post`.`user_id` = '$user' AND `user_post`.`post_id` = '$post'";
+                    }
+                    mysqli_query($conn, $sql_vote);
+                }
+                break;
+
+            // TODO: scroll back to post
+            case 'downvote': // downvote specific post
+                // check if user already voted:
+                $sql_check = "SELECT `vote` FROM `user_post` WHERE `user_id` = '$user' AND `post_id` = '$post'";
+                if($res = mysqli_query($conn, $sql_check)){
+                    if (mysqli_num_rows($res) == 0) { // if there is no upvote yet
+                        $sql_vote = "INSERT INTO `user_post` (`user_post_id`, `user_id`, `post_id`, `vote`) VALUES (NULL, '$user', '$post', '-1')";
+                    }else{
+                        $sql_vote = "UPDATE `user_post` SET `vote` = '-1' WHERE `user_post`.`user_id` = '$user' AND `user_post`.`post_id` = '$post'";
+                    }
+                    mysqli_query($conn, $sql_vote);
+                }
+                break;
+        }
+
     }
 
         // HTML - form for writing and sending post
@@ -77,13 +111,13 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
             $result = mysqli_query($conn, $sql_vote);
             $row = mysqli_fetch_array( $result, MYSQLI_ASSOC);
             
-            echo '<a href="expand_less"><i class="material-icons">expand_less</i></a><br>';
+            echo "<a href='?action=upvote&post=$post_id'><i class='material-icons'>expand_less</i></a><br>"; // upvote
             if ($row['votes'] <> NULL) {
                 echo "$row[votes]";
             }else{
                 echo "0";
             }
-            echo '<br><a href="expand_less"><i class="material-icons">expand_more</i></a><br>';
+            echo "<br><a href='?action=downvote&post=$post_id'><i class='material-icons'>expand_more</i></a><br>"; // downvote
 
             // delete post
             if ($_SESSION['is_admin']){
