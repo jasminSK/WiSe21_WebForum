@@ -5,14 +5,12 @@ include_once 'dbconnect.php';
 include 'header.php';
 
 // action: register
-// TODO: check if username already exists
 if(isset($_POST['register']))
 {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $sql = "INSERT INTO user (username, password) VALUES ('$username','$password');";
     if (mysqli_query($conn, $sql)) {
-        echo "<h2>Account was created!</h2><br>";
         echo '
                 <div class="alert green">
                     <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
