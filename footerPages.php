@@ -14,7 +14,13 @@ if (isset($_GET['site'])) {
 
 switch ($site){
     case 'contactus':
-        echo 'Yea';
+        echo 'contact us';
+        break;
+    case 'faq':
+        echo 'faq';
+        break;
+    case 'aboutus':
+        echo 'about us';
         break;
     default:
         echo 'Nope';
