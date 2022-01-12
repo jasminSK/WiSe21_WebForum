@@ -7,7 +7,7 @@ session_write_close();
 
 include 'header.php';
 echo '
-<div class="alert">
+<div class="alert green">
   <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
   <strong>Success!</strong> You have been logged out.
 </div>
