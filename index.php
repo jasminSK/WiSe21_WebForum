@@ -7,7 +7,12 @@ include 'header.php';
 // if sid exists and login for sid exists
 session_start(); // gets session id 
 if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in 
-    echo'<br>You are currently not logged in login <a href="./login.php">here</a>.';
+    echo'
+    <div class="alert">
+        You are currently not logged in. You can log in <a href="./login.php">here</a>.
+    </div>
+    ';
+
 } else { // if logged in 
 
     // action: create post
