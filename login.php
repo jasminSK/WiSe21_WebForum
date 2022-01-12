@@ -29,7 +29,7 @@ if(isset($_POST['login']))
 
                 
                 
-                header('Location: ./index.php'); //redirect to main
+                header('Location: /forum/index.php'); //redirect to main
 
             }
             mysqli_free_res($res);
@@ -59,7 +59,7 @@ echo '
         <input type="password" id="password" name="password" value="" placeholder="Password" required><br>
         <input type="submit" name="login" value="Log In">
         <hr>
-        <a href="./register.php" class="button">Don\'t have an account yet?</a>
+        <a href="/forum/register.php" class="button">Don\'t have an account yet?</a>
     </form>';
 
 include 'footer.php'
