@@ -45,7 +45,7 @@ input[type=submit]{
 }
 input[type=submit]:hover {
     background-color: #080;
-  }
+}
 
 label{
     text-align: left;
@@ -206,7 +206,7 @@ li a:hover:not(.active) {
     background-color: #09e;
 }
 
-
+/* forum */
 .scroll{
     overflow-y: scroll;
 }
@@ -269,4 +269,16 @@ input.createpost:hover{
 }  
 .closebtn:hover {
     color: black;
+}
+
+/* file upload*/
+.message{
+    text-align: center;
+    background-color: #0A6;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    margin: 20px;
+    width: 50%;
+    margin-left: 25%;
 }
