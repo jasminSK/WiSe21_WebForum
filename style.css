@@ -249,9 +249,19 @@ input.createpost:hover{
 /* alertboxes */
 .alert {
     padding: 20px;
-    background-color: #0A6;
+    background-color: #000;
     border-radius: 10px;
     color: white;
+    text-align: left;
+}
+.alert.green{
+    background-color: #695;
+}
+.alert.yellow{
+   background-color: #FD0;
+}
+.alert.red{
+   background-color: #E33;
 }
 .closebtn {
     margin-left: 15px;
