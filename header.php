@@ -17,11 +17,11 @@
 <body>
     <h1>myForum</h1>
     <div id="wrapper">
-        <ul>
-            <li style="float:left"><a class="item" href="./index.php">Home</a></li>
-            <li style="float:left"><a class="item" href="./account.php">Account</a></li>
-            <li><a class="item" href="./logout.php">logout</a></li>
-            <li><a class="item" href="./register.php">register</a></li>
-            <li><a class="item" href="./login.php">login</a></li>
+        <ul class="header">
+            <li style="float:left"><a href="./index.php">Home</a></li>
+            <li style="float:left"><a href="./account.php">Account</a></li>
+            <li><a href="./logout.php">logout</a></li>
+            <li><a href="./register.php">register</a></li>
+            <li><a href="./login.php">login</a></li>
         </ul>
     <div id="content">
