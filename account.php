@@ -9,26 +9,51 @@ session_start(); // gets session id
 if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in 
     echo'<br>You are currently not logged in login <a href="./login.php">here</a>.';
 } else { // if logged in 
-    echo "<div class='account'>";
-    echo "<h1>Account:</h1>";
-    echo "<img src='upload/default.png'><br>";
-    echo "username: " . $_SESSION['username'] . "<br>";
-    echo "user_id: " . $_SESSION['user_id'] . "<br>";
-    echo "logged_in: " . $_SESSION['signed_in'] . "<br>";
-    echo "admin: " . $_SESSION['is_admin'] . "<br>";
-    echo "</div>";
+    $signed_in = $_SESSION['signed_in'];
+    $user_id = $_SESSION['user_id'];
+    $username = $_SESSION['username'];
+    $file_path = $_SESSION['file_path'];
+    $is_admin = $_SESSION['is_admin'];
 
-    // HTML - Form for uploading files
-    // Type "file" enables file browsing
-    echo '
-    <form action="" method="post" enctype="multipart/form-data">
-    Select image to upload:
-    <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" value="Upload Image" name="submit_picture">
+    if($is_admin){
+        $role = 'Administrator';
+    }else{
+        $role = 'regular user';
+    }
+
+    echo "
+    <div class='account'>
+
+        <form action='' method='post' enctype='multipart/form-data'>
+            <h1>Account:</h1>
+
+            <div class='profilepicture'>
+                <label for='fileToUpload'>
+                    <input type='file' name='fileToUpload' id='fileToUpload'>
+                    <img src='$file_path'>
+                </label>
+                <div class='edit'><i class='material-icons'>edit</i></div>
+            </div>
+            
+            <br><br>
+            <b>$username</b><br>
+            $role<br>
+            
+        <input type='submit' value='Upload Image' name='submit_picture'>
     </form>
-    ';
+
+    </div>
+    ";
 
     // PHP - Code for file upload
+    /* 
+        TODO:
+        - rename file
+        - update file_path in db 
+        - update session cookie file_path
+        - rescale image to (500px x 500px)
+        
+    */
     // ATTENTION: The uploaded files will be saved in the directory "upload"
     if(isset($_POST["submit_picture"])) {
 
@@ -40,40 +65,40 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
         // Checks if image is really an image
         $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
         if($check !== false) {
-            echo "<div>File is an image - " . $check["mime"] . ".</div>";
+            echo "File is an image - " . $check["mime"] . ".<br>";
             $uploadOk = 1;
         } else {
-            echo "<div>File is not an image.</div>";
+            echo "File is not an image.<br>";
             $uploadOk = 0;
         }
 
         // Checks if file already exists
         if (file_exists($target_file)) {
-            echo "<div>Sorry, file already exists.</div>";
+            echo "Sorry, file already exists.<br>";
             $uploadOk = 0;
         }
 
         // Checks if file size > 500KB
         if ($_FILES["fileToUpload"]["size"] > 500000) {
-            echo "<div>Sorry, your file is too large.</div>";
+            echo "Sorry, your file is too large.<br>";
             $uploadOk = 0;
         }
 
         // Allows only certain file formats
         if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-            echo "<div>Sorry, only JPG, JPEG, PNG & GIF files are allowed.</div>";
+            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.<br>";
             $uploadOk = 0;
         }
 
         // Check if $uploadOk is set to 0 by an error
         // Else, if everything is ok, try to upload file or send error message if something went wrong
         if ($uploadOk == 0) {
-            echo "<div>Sorry, your file was not uploaded.</div>";
+            echo "Sorry, your file was not uploaded.<br>";
         } else {
             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-                echo "<div> The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded. </div>"; 
+                echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.<br>"; 
             } else {
-                echo "<div>Sorry, there was an error uploading your file.</div>";
+                echo "Sorry, there was an error uploading your file.<br>";
             }
         }
     }

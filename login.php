@@ -23,6 +23,7 @@ if(isset($_POST['login']))
                 // Session-Cookie
                 $_SESSION['signed_in'] = true; //write signed_in to server storage
                 $_SESSION['username'] = $row['username']; 
+                $_SESSION['file_path'] = $row['file_path'];
                 $_SESSION['is_admin'] = $row['is_admin'];
                 $_SESSION['user_id'] = $row['user_id'];
 

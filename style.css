@@ -92,8 +92,8 @@ hr{
 
 img{
     border-radius: 50%;
-    width: 64px;
-    height: 64px;
+    width: 96px;
+    height: 96px;
 }
 img:hover {
     box-shadow: 0 0 3px 1px rgba(255, 0, 136, 0.5);
@@ -152,11 +152,42 @@ li a:hover:not(.active) {
 
 .account{
     background-color: #333;
+    color: #eee;
     text-align: center;
     border-radius: 10px;
     padding: 10px;
-    width: auto;
+    width: 50%;
+    margin-left: 25%;
 }
+
+.profilepicture{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 96px;
+    height: 96px;
+   
+}
+
+.edit{
+    text-align: center;
+    position: fixed;
+    margin-top: -25px;
+    margin-left: 80px;
+    
+    opacity: 0;
+    transition: .3s ease;
+}
+
+.profilepicture:hover .edit {
+    opacity: 1;
+  }
+
+#fileToUpload{
+    display: none;
+}
+
+
   
 /* button below login/registration */
 .button {
