@@ -35,7 +35,12 @@ if(isset($_POST['login']))
             mysqli_free_res($res);
         }
         else {
-            echo "<h3>No matching records are found.</h3>";
+            echo '
+                <div class="alert red">
+                    <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+                    <b>Error:</b> No matching records are found.
+                </div>
+            ';
         }
     }
     else {
