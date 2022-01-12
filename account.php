@@ -49,18 +49,9 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
             <input type='submit' value='Upload Image' name='submit_picture'>
         </form>
 
-    
     ";
 
     // PHP - Code for file upload
-    /* 
-        TODO:
-        - rename file
-        - update file_path in db 
-        - update session cookie file_path
-        - rescale image to (500px x 500px)
-        
-    */
     // ATTENTION: The uploaded files will be saved in the directory "upload"
     if(isset($_POST["submit_picture"])) {
 
@@ -71,7 +62,7 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
 
         // error message
         echo '
-            <div class="alert red">
+            <div class="alert yellow">
                 <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
         ';
 
@@ -114,7 +105,20 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
                 echo "Error: Your file was not uploaded.<br>";
             } else {
                 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-                    echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.<br>"; 
+                    // delete old file
+                    if($file_path != 'upload/default.png'){
+                        if (!unlink($file_path)) { 
+                            echo ("Error: Your old old profile picture cannot be deleted.<br>");
+                        } else { 
+                            echo ("Success: Your old old profile picture has been deleted.<br>"); 
+                        } 
+                    }
+                    // update path in db
+                    $sql_path = "UPDATE `user` SET `file_path` = '$target_file' WHERE `user`.`user_id` = $user_id;";
+                    mysqli_query($conn, $sql_path);
+                    echo ("Success: You've updated your profile picture.<br>"); 
+                    header('Refresh: 0; URL = ');
+
                 } else {
                     echo "Error: There was an error uploading your file.<br>";
                 }
