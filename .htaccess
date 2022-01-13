@@ -5,15 +5,15 @@ deny from all
 </Files>
 
 # ErrorDocuments
-ErrorDocument 401 /forum/error.php?id=401
-ErrorDocument 402 /forum/error.php?id=402
-ErrorDocument 403 /forum/error.php?id=403
-ErrorDocument 404 /forum/error.php?id=404
-ErrorDocument 500 /forum/error.php?id=500
-ErrorDocument 501 /forum/error.php?id=501
-ErrorDocument 502 /forum/error.php?id=502
-ErrorDocument 503 /forum/error.php?id=503
-ErrorDocument 504 /forum/error.php?id=504
+ErrorDocument 401 /forumsec/error.php?id=401
+ErrorDocument 402 /forumsec/error.php?id=402
+ErrorDocument 403 /forumsec/error.php?id=403
+ErrorDocument 404 /forumsec/error.php?id=404
+ErrorDocument 500 /forumsec/error.php?id=500
+ErrorDocument 501 /forumsec/error.php?id=501
+ErrorDocument 502 /forumsec/error.php?id=502
+ErrorDocument 503 /forumsec/error.php?id=503
+ErrorDocument 504 /forumsec/error.php?id=504
 
 # Disable directory browsing
 Options -Indexes

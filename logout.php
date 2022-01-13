@@ -14,5 +14,5 @@ echo '
 ';
 include 'footer.php';
 
-header('Refresh: 2; URL = /forum/');
+header('Refresh: 2; URL = /forumsec/');
 ?>

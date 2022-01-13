@@ -38,7 +38,7 @@ echo '
         <input type="password" id="password" name="password" value="" placeholder="Password" required><br>
         <input type="submit" name="register" value="Register">
         <hr>
-        <a href="/forum/login.php" class="button">Already have an account?</a>
+        <a href="/forumsec/login.php" class="button">Already have an account?</a>
     </form>';
 
 include 'footer.php';

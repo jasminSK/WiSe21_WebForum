@@ -17,7 +17,7 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
     <h4>What are you waiting for?</h4>
     
     <div class="alert green">
-        You are currently not logged in. You can log in <a href="/forum/login.php">here</a> or register <a href="/forum/register.php">here</a> to create an account.
+        You are currently not logged in. You can log in <a href="/forumsec/login.php">here</a> or register <a href="/forumsec/register.php">here</a> to create an account.
     </div>
     ';
 
