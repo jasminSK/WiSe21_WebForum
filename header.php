@@ -20,8 +20,8 @@
         <ul class="header">
             <li style="float:left"><a href="/forum/index.php">Home</a></li>
             <li style="float:left"><a href="/forum/account.php">Account</a></li>
-            <li><a href="/forum/logout.php">logout</a></li>
-            <li><a href="/forum/register.php">register</a></li>
-            <li><a href="/forum/login.php">login</a></li>
+            <li><a href="/forum/logout.php">Logout</a></li>
+            <li><a href="/forum/register.php">Register</a></li>
+            <li><a href="/forum/login.php">Login</a></li>
         </ul>
     <div id="content">
