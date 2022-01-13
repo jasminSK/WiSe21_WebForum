@@ -8,8 +8,8 @@ include 'header.php';
 if(isset($_POST['register']))
 {
     $username = $_POST['username'];
-    $password = $_POST['password'];
-    $sql = "INSERT INTO user (username, password) VALUES ('$username','$password');";
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $sql = "INSERT INTO `user` (`username`, `password`) VALUES ('$username','$password');";
     if (mysqli_query($conn, $sql)) {
         echo '
                 <div class="alert green">
