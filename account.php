@@ -7,7 +7,7 @@ include 'header.php';
 // if sid exists and login for sid exists
 session_start(); // gets session id 
 if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in 
-    echo'<div class="alert">
+    echo'<div class="alert green">
     You are currently not logged in. You can log in <a href="/forum/login.php">here</a>.
 </div>';
 } else { // if logged in 
