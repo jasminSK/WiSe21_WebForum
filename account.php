@@ -37,7 +37,7 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
             <div class='profilepicture'>
                 <label for='fileToUpload'>
                     <input type='file' name='fileToUpload' id='fileToUpload'>
-                    <img src='$file_path'>
+                    <img class='profile' src='$file_path'>
                 </label>
                 <div class='edit'><i class='material-icons'>edit</i></div>
             </div>
