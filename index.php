@@ -8,8 +8,16 @@ include 'header.php';
 session_start(); // gets session id 
 if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in 
     echo'
+
+    <h1>Welcome to our forum - come join us!</h1><br>
+    <h2>Here we offer you:</h2> <br>
+    - your personal account <br><br>
+    - the opportunity to create posts and share you thoughts with the whole community <br><br>
+    - the possibilty of expressing your opinion by up- or downvoting posts <br><br><br>
+    <h4>What are you waiting for?</h4>
+    
     <div class="alert green">
-        You are currently not logged in. You can log in <a href="/forum/login.php">here</a>.
+        You are currently not logged in. You can log in <a href="/forum/login.php">here</a> or register <a href="/forum/register.php">here</a> to create an account.
     </div>
     ';
 
