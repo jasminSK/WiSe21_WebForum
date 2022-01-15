@@ -10,8 +10,8 @@ include 'header.php';
 include_once 'dbconnect.php';
 if(isset($_POST['login']))
 {  
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = htmlspecialchars($_POST['username']);
+    $password = htmlspecialchars($_POST['password']);
 
     $sql = "SELECT * FROM `user` WHERE `username`= '$username'";
     $res = mysqli_query($conn, $sql);

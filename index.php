@@ -26,8 +26,8 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
     // action: create post
     if(isset($_POST['createpost']))
     {
-        $title = $_POST['title'];
-        $text = $_POST['text'];
+        $title = htmlspecialchars($_POST['title']);
+        $text = htmlspecialchars($_POST['text']);
         $author = $_SESSION['user_id'];
         $sql = "INSERT INTO post (title, content, author) VALUES ('$title','$text', '$author');";
         if (mysqli_query($conn, $sql)) {
