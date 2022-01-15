@@ -70,16 +70,7 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
         if(empty($target_file) OR empty($imageFileType)){
             echo "Error: Please select a file first.<br>";
 
-        } else { //if file selected
-            // Checks if image is really an image
-            $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-            if($check !== false) {
-                // echo "Success: File is an image - " . $check["mime"] . ".";
-                $uploadOk = 1;
-            } else {
-                echo "Error: File is not an image.<br>";
-                $uploadOk = 0;
-            }
+        } 
 
             // Checks if file already exists
             if (file_exists($target_file)) {
@@ -87,18 +78,7 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
                 $uploadOk = 0;
             }
 
-            // Checks if file size > 500KB
-            if ($_FILES["fileToUpload"]["size"] > 500000) {
-                echo "Error: File is too large.<br>";
-                $uploadOk = 0;
-            }
-
-            // Allows only certain file formats
-            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-                echo "Error: Only JPG, JPEG, PNG & GIF files are allowed.<br>";
-                $uploadOk = 0;
-            }
-
+            
             // Check if $uploadOk is set to 0 by an error
             // Else, if everything is ok, try to upload file or send error message if something went wrong
             if ($uploadOk == 0) {
@@ -132,7 +112,6 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
 
     echo'</div>';// end of account
 
-}
 
 include 'footer.php';
 ?>
