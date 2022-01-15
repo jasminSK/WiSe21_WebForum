@@ -1,8 +1,20 @@
 <?php
 // logout.php
+
+
+// start session
 session_start();
-setcookie(session_name(), "", time() - 3600); //send browser command remove sid from cookie
-session_destroy(); //remove sid-login from server storage
+
+// remove all session variables
+session_unset();
+
+// send browser command remove sid from cookie
+setcookie(session_name(), "", time() - 3600); 
+
+// remove sid-login from server storage
+session_destroy();
+
+// end the current session and store session data
 session_write_close();
 
 include 'header.php';
@@ -12,7 +24,9 @@ echo '
   <strong>Success!</strong> You have been logged out.
 </div>
 ';
+
 include 'footer.php';
 
+// redirect to startpage
 header('Refresh: 2; URL = /forumsec/');
 ?>
