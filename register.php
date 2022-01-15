@@ -7,8 +7,8 @@ include 'header.php';
 // action: register
 if(isset($_POST['register']))
 {
-    $username = htmlspecialchars($_POST['username']);
-    $password = password_hash(htmlspecialchars($_POST['password']), PASSWORD_DEFAULT);
+    $username = htmlspecialchars(mysqli_real_escape_string($conn, $_POST['username']));
+    $password = password_hash(htmlspecialchars(mysqli_real_escape_string($conn, $_POST['password'])), PASSWORD_DEFAULT);
     $sql = "INSERT INTO `user` (`username`, `password`) VALUES ('$username','$password');";
     if (mysqli_query($conn, $sql)) {
         echo '
