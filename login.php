@@ -18,8 +18,8 @@ if(isset($_POST['login']))
     $row = mysqli_fetch_array($res, MYSQLI_ASSOC);
     $hash = $row['password'];
 
-    // check if password is correct
-    if(password_verify($password, $hash)){
+    // check if username and password is correct
+    if($username == $row['username'] & password_verify($password, $hash)){
         // Session-Cookie
         $_SESSION['signed_in'] = true;
         $_SESSION['username'] = $row['username']; 
