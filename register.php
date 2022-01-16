@@ -23,31 +23,42 @@ if(isset($_POST['register']))
                 <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>';
         echo "<b>Error:</b><br>$regex_error
             </div>";
-
     }else{
+        // if the password is fine, account will be created
 
+        // prepearing statement to register a user
+        $stmt = $conn->prepare("INSERT INTO `user` (`username`, `password`) VALUES (?, ?)");
+
+        // variables to be used; gets username and password
         $username = htmlspecialchars(mysqli_real_escape_string($conn, $_POST['username']));
         $password_hash = password_hash(htmlspecialchars(mysqli_real_escape_string($conn, $password)), PASSWORD_DEFAULT);
-        
-        $sql = "INSERT INTO `user` (`username`, `password`) VALUES ('$username','$password_hash');";
-        if (mysqli_query($conn, $sql)) {
-            echo '
-                    <div class="alert green">
-                        <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
-                        <b>Success:</b> Account was created!
-                    </div>
-                ';
-        } else {
-            echo '
-                    <div class="alert red">
-                        <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
-                        <b>Error:</b> Username is already taken!
-                    </div>
-                ';
-        }
-        mysqli_close($conn);
 
+        //bind and execute
+        $stmt->bind_param("ss", $username, $password_hash);
+        $stmt->execute();
+
+        if ($stmt->error) {
+            // if error occurs show error
+            echo '
+                <div class="alert red">
+                    <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+                    <b>Error:</b> Username is already taken!
+                </div>
+            ';
+        } else {
+            // if everything went fine show message
+            echo '
+                <div class="alert green">
+                    <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+                    <b>Success:</b> Account was created!
+                </div>
+            ';
+        }   
+
+        $stmt->close();
+        $conn->close();
     }
+
 }
 
 

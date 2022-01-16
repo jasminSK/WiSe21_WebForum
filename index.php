@@ -37,28 +37,41 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
         if(strlen($text) > 2000){$input_error .= "Text is too long!<br>";}
 
         if($input_error){
+            // if input incorrect show error
             echo '<div class="alert red">
                 <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>';
             echo "<b>Error:</b> $input_error
                 </div>";
         }else{
+            // if input is ok
             $author = $_SESSION['user_id'];
-            $sql = "INSERT INTO post (title, content, author) VALUES ('$title','$text', '$author');";
-            if (mysqli_query($conn, $sql)) {
+
+            // prepearing statement to create post
+            $stmt = $conn->prepare("INSERT INTO post (title, content, author) VALUES (?, ?, ?)");
+            
+            //bind and execute
+            $stmt->bind_param("ssi", $title, $text, $author);
+            $stmt->execute();
+
+            if ($stmt->error) {
+                // if error occurs show error
+                echo '
+                    <div class="alert red">
+                        <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+                        <strong>Error:</strong> unexpected SQL error.
+                    </div>
+                ';
+            } else {
+                // if everything went fine show message
                 echo '
                 <div class="alert green">
                     <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
                     <strong>Success!</strong> Post has been sent.
                 </div>
                 ';
-            } else {
-                echo '
-                <div class="alert red">
-                    <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
-                    <strong>Error:</strong> unexpected SQL error.
-                </div>
-                ';
             }
+            
+            $stmt->close();
         }
     }
 
