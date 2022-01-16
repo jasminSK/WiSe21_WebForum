@@ -178,7 +178,7 @@ li a:hover:not(.active) {
     opacity: 1;
   }
 
-#fileToUpload{
+#file_to_upload{
     display: none;
 }
 
