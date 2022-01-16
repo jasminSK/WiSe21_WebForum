@@ -251,7 +251,7 @@ input.createpost:hover{
     0%   {
         top: 50px;
         opacity: 0;
-        box-shadow: 0px 0px 0px #AAA;
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4);
     }
     100% {opacity: 1;}
   }
@@ -263,7 +263,7 @@ input.createpost:hover{
     padding: 20px;
     background-color: #000;
     border-radius: 10px;
-    box-shadow: 5px 5px 5px #AAA;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
     color: #FFF;
     text-align: left;
     animation-name: slide;

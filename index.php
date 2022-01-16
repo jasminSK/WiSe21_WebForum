@@ -30,17 +30,34 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
     {
         $title = htmlspecialchars(mysqli_real_escape_string($conn, $_POST['title']));
         $text = htmlspecialchars(mysqli_real_escape_string($conn, $_POST['text']));
-        $author = $_SESSION['user_id'];
-        $sql = "INSERT INTO post (title, content, author) VALUES ('$title','$text', '$author');";
-        if (mysqli_query($conn, $sql)) {
-            echo '
-            <div class="alert green">
-                <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
-                <strong>Success!</strong> Post has been sent.
-            </div>
-            ';
-        } else {
-            echo "SQL:<br>".$sql . "<h3>Error:</h3><br>" .mysqli_error($conn); // for security remove error message
+
+        // check if input is too long
+        if(strlen($title) > 100){$inputError .= "Title is too long!<br>";}
+        if(strlen($text) > 2000){$inputError .= "Text is too long!<br>";}
+
+        if($inputError){
+            echo '<div class="alert red">
+                <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>';
+            echo "<b>Error:</b> $inputError
+                </div>";
+        }else{
+            $author = $_SESSION['user_id'];
+            $sql = "INSERT INTO post (title, content, author) VALUES ('$title','$text', '$author');";
+            if (mysqli_query($conn, $sql)) {
+                echo '
+                <div class="alert green">
+                    <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+                    <strong>Success!</strong> Post has been sent.
+                </div>
+                ';
+            } else {
+                echo '
+                <div class="alert red">
+                    <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+                    <strong>Error:</strong> unexpected SQL error.
+                </div>
+                ';
+            }
         }
     }
 
@@ -48,7 +65,7 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
     if (isset($_GET['action']) & isset($_GET['post'])) {
         $action = $_GET['action'];
         $post = $_GET['post'];
-        $user = $_SESSION['user_id']; // is needed because SQL ''
+        $user = $_SESSION['user_id'];
         switch ($action){
             case 'delete': // delete specific post
                 if ($_SESSION['is_admin']){
@@ -155,7 +172,12 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
         mysqli_free_result($res);
 
     }else {
-        echo "ERROR: Could't execute<br>";
+        echo '
+                <div class="alert red">
+                    <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+                    <strong>Error:</strong> unexpected SQL error.
+                </div>
+                ';
     }
 
 }
