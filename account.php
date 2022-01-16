@@ -7,9 +7,8 @@ include 'header.php';
 // if sid exists and login for sid exists
 session_start(); // gets session id 
 if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in 
-    echo'<div class="alert green">
-    You are currently not logged in. You can log in <a href="/forumsec/login.php">here</a>.
-</div>';
+   // redirect to startpage
+    header('Refresh: 0; URL = /forumsec/');
 } else { // if logged in 
     $signed_in = $_SESSION['signed_in'];
     $user_id = $_SESSION['user_id'];
