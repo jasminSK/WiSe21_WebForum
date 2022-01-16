@@ -32,13 +32,14 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
         $text = htmlspecialchars(mysqli_real_escape_string($conn, $_POST['text']));
 
         // check if input is too long
-        if(strlen($title) > 100){$inputError .= "Title is too long!<br>";}
-        if(strlen($text) > 2000){$inputError .= "Text is too long!<br>";}
+        $input_error = "";
+        if(strlen($title) > 100){$input_error .= "Title is too long!<br>";}
+        if(strlen($text) > 2000){$input_error .= "Text is too long!<br>";}
 
-        if($inputError){
+        if($input_error){
             echo '<div class="alert red">
                 <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>';
-            echo "<b>Error:</b> $inputError
+            echo "<b>Error:</b> $input_error
                 </div>";
         }else{
             $author = $_SESSION['user_id'];

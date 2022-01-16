@@ -10,25 +10,26 @@ if(isset($_POST['register']))
     $password = $_POST['password'];
     
     // check password strength
-    if(strlen($password) < 9){$regexError .= "- Password too short!<br>";}
-    if(strlen($password) > 32){$regexError .= "- Password too long!<br>";}
-    if(!preg_match("#[0-9]+#", $password)){$regexError .= "- Password must include at least one number!<br>";}
-    if(!preg_match("#[a-z]+#", $password)){$regexError .= "- Password must include at least one letter!<br>";}
-    if(!preg_match("#[A-Z]+#", $password)){$regexError .= "- Password must include at least one capital letter!<br>";}
-    if(!preg_match("#\W+#"   , $password)){$regexError .= "- Password must include at least one symbol!<br>";}
+    $regex_error = "";
+    if(strlen($password) < 9){$regex_error .= "- Password too short!<br>";}
+    if(strlen($password) > 32){$regex_error .= "- Password too long!<br>";}
+    if(!preg_match("#[0-9]+#", $password)){$regex_error .= "- Password must include at least one number!<br>";}
+    if(!preg_match("#[a-z]+#", $password)){$regex_error .= "- Password must include at least one letter!<br>";}
+    if(!preg_match("#[A-Z]+#", $password)){$regex_error .= "- Password must include at least one capital letter!<br>";}
+    if(!preg_match("#\W+#"   , $password)){$regex_error .= "- Password must include at least one symbol!<br>";}
     
-    if($regexError){
+    if($regex_error){
         echo '<div class="alert red">
                 <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>';
-        echo "<b>Error:</b><br>$regexError
+        echo "<b>Error:</b><br>$regex_error
             </div>";
 
     }else{
 
         $username = htmlspecialchars(mysqli_real_escape_string($conn, $_POST['username']));
-        $passwordHash = password_hash(htmlspecialchars(mysqli_real_escape_string($conn, $password)), PASSWORD_DEFAULT);
+        $password_hash = password_hash(htmlspecialchars(mysqli_real_escape_string($conn, $password)), PASSWORD_DEFAULT);
         
-        $sql = "INSERT INTO `user` (`username`, `password`) VALUES ('$username','$passwordHash');";
+        $sql = "INSERT INTO `user` (`username`, `password`) VALUES ('$username','$password_hash');";
         if (mysqli_query($conn, $sql)) {
             echo '
                     <div class="alert green">

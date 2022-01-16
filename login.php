@@ -16,10 +16,10 @@ if(isset($_POST['login']))
     $sql = "SELECT * FROM `user` WHERE `username`= '$username'";
     $res = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($res, MYSQLI_ASSOC);
-    $passwordHash = $row['password'];
+    $password_hash = $row['password'];
 
     // check if username and password is correct
-    if($username == $row['username'] & password_verify($password, $passwordHash)){
+    if($username == $row['username'] & password_verify($password, $password_hash)){
         // Session-Cookie
         $_SESSION['signed_in'] = true;
         $_SESSION['username'] = $row['username']; 
