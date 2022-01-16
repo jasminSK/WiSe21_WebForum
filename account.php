@@ -35,8 +35,8 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
             <h1>Account:</h1>
 
             <div class='profilepicture'>
-                <label for='fileToUpload'>
-                    <input type='file' name='fileToUpload' id='fileToUpload'>
+                <label for='file_to_upload'>
+                    <input type='file' name='file_to_upload' id='file_to_upload'>
                     <img class='profile' src='$file_path'>
                 </label>
                 <div class='edit'><i class='material-icons'>edit</i></div>
@@ -56,9 +56,9 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
     if(isset($_POST["submit_picture"])) {
 
         $target_dir = "upload/";
-        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-        $uploadOk = 1;
-        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        $target_file = $target_dir . basename($_FILES["file_to_upload"]["name"]);
+        $upload_ok = 1;
+        $file_type = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
         // error message
         echo '
@@ -67,7 +67,7 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
         ';
 
         // Checks if file path has been selected
-        if(empty($target_file) OR empty($imageFileType)){
+        if(empty($target_file) OR empty($file_type)){
             echo "Error: Please select a file first.<br>";
 
         } 
@@ -75,16 +75,16 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
             // Checks if file already exists
             if (file_exists($target_file)) {
                 echo "Error: File already exists.<br>";
-                $uploadOk = 0;
+                $upload_ok = 0;
             }
 
             
-            // Check if $uploadOk is set to 0 by an error
+            // Check if $upload_ok is set to 0 by an error
             // Else, if everything is ok, try to upload file or send error message if something went wrong
-            if ($uploadOk == 0) {
+            if ($upload_ok == 0) {
                 echo "Error: Your file was not uploaded.<br>";
             } else {
-                if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                if (move_uploaded_file($_FILES["file_to_upload"]["tmp_name"], $target_file)) {
                     // delete old file
                     if($file_path != 'upload/default.png'){
                         if (!unlink($file_path)) { 
