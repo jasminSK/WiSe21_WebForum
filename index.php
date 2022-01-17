@@ -64,10 +64,10 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
             } else {
                 // if everything went fine show message
                 echo '
-                <div class="alert green">
-                    <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
-                    <strong>Success!</strong> Post has been sent.
-                </div>
+                    <div class="alert green">
+                        <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+                        <strong>Success!</strong> Post has been sent.
+                    </div>
                 ';
             }
             
@@ -115,23 +115,31 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
                     mysqli_query($conn, $sql_vote);
                 }
                 break;
+            default:
+                echo '
+                    <div class="alert red">
+                        <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+                        <strong>Error:</strong> This Action does not exist.
+                    </div>
+                ';
         }
 
     }
 
         // HTML - form for writing and sending post
         echo'
-        <div class="createpost">
-        <form action="" method="post" id="submitpost">
-            <input type="text" id="title" name="title" value="" placeholder="Title" required><br>
-            <input type="text" id="text" name="text" value="" placeholder="Text" required><br>
-            <input type="submit" id="createpost" class="createpost" name="createpost" value="Create Post">
-        </form>
-        </div>';
-        echo "<hr>";
+            <div class="createpost">
+            <form action="" method="post" id="submitpost">
+                <input type="text" id="title" name="title" value="" placeholder="Title" required><br>
+                <input type="text" id="text" name="text" value="" placeholder="Text" required><br>
+                <input type="submit" id="createpost" class="createpost" name="createpost" value="Create Post">
+            </form>
+            </div>
+            <hr>
+        ';
 
     // Selects all posts
-    $sql = "SELECT post.creation_date, post.post_id, user.username, post.title, post.content FROM post LEFT JOIN user ON post.author = user.user_id ORDER BY creation_date DESC;";
+    $sql = "SELECT `post`.`creation_date`, `post`.`post_id`, `user`.`username`, `post`.`title`, `post`.`content` FROM `post` LEFT JOIN `user` ON `post`.`author` = `user`.`user_id` ORDER BY `creation_date` DESC;";
 
     // Displays all posts
     if ($res = mysqli_query($conn, $sql)) {
@@ -147,12 +155,10 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
             $content = $row['content'];
 
             echo "<div class='post'>";
-
             echo "<div class='left'>";
 
             // Vote
-            // TODO: implement upvote downvote
-            // Does not work with href or only php, must use jquery or javascript or both to execute event
+            // TODO: use AJAX
             $sql_vote = "SELECT SUM(vote) AS 'votes' FROM user_post WHERE post_id = $post_id;";
             $result = mysqli_query($conn, $sql_vote);
             $row = mysqli_fetch_array( $result, MYSQLI_ASSOC);
@@ -170,28 +176,25 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
                 echo "<br><a href='?action=delete&post=$post_id'><i class='material-icons'>delete</i></a><br>";      
             }
             echo "</div>"; // end of left
-
-            echo "<div class='right'>";
-            echo "<h4>$title</h4>";
-            echo "$content<br>";
-            echo "By $username<br>";
-            echo "$creation_date<br>";
-            echo "</div>"; // end of right
+            echo "<div class='right'>
+                    <h4>$title</h4>
+                    $content<br>
+                    By $username<br>
+                    $creation_date<br>
+                    </div>"; // end of right
             echo' <br style="clear:both;"/>'; // fixes problem where post is 0px
-
             echo "</div>"; // end of post
-
         }
         echo "</div>"; // end of forum scroll
         mysqli_free_result($res);
 
     }else {
         echo '
-                <div class="alert red">
-                    <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
-                    <strong>Error:</strong> unexpected SQL error.
-                </div>
-                ';
+            <div class="alert red">
+                <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+                <strong>Error:</strong> unexpected SQL error.
+            </div>
+        ';
     }
 
 }

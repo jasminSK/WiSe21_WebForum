@@ -68,14 +68,13 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
         ';
 
         // Checks if file path has been selected
-        if(empty($target_file) OR empty($file_type)){
+        if(empty($target_file) || empty($file_type)){
             echo "Error: Please select a file first.<br>";
 
         } else { //if file selected
             // Checks if image is really an image
             $check = getimagesize($_FILES["file_to_upload"]["tmp_name"]);
             if($check !== false) {
-                // echo "Success: File is an image - " . $check["mime"] . ".";
                 $upload_ok = 1;
             } else {
                 echo "Error: File is not an image.<br>";
@@ -109,15 +108,15 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
                     // delete old file
                     if($file_path != 'upload/default.png'){
                         if (!unlink($file_path)) { 
-                            echo ("Error: Your old old profile picture cannot be deleted.<br>");
+                            echo "Error: Your old old profile picture cannot be deleted.<br>";
                         } else { 
-                            echo ("Success: Your old old profile picture has been deleted.<br>"); 
+                            echo "Success: Your old old profile picture has been deleted.<br>"; 
                         } 
                     }
                     // update path in db
                     $sql_path = "UPDATE `user` SET `file_path` = '$target_file' WHERE `user`.`user_id` = $user_id;";
                     mysqli_query($conn, $sql_path);
-                    echo ("Success: You've updated your profile picture.<br>"); 
+                    echo "Success: You've updated your profile picture.<br>"; 
                     header('Refresh: 0; URL = ');
 
                 } else {

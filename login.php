@@ -36,7 +36,6 @@ if(isset($_POST['login']))
                 </div>
             ';
     }
-    //mysqli_free_res($res);
     mysqli_close($conn);
 }
 

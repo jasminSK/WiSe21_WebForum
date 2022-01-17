@@ -1,5 +1,6 @@
 <?php
 // error.php
+
 include 'header.php';
 
 echo '<div class="error";>';
@@ -12,16 +13,15 @@ if (isset($_GET['id'])) {
     $id = '0';
 }
 
-# TODO: test error pages: 401, 402, 403, 500, 501, 502, 503, 503, 504
 switch ($id){
     case '401':
         echo '<e class="error-content">401 Unauthorized</e><br>';
         break;
     case '402':
-        echo '<e class="error-content">402 Payment Required<br>(lol as if)</e><br>';
+        echo '<e class="error-content">402 Payment Required<br>(lol?)</e><br>';
         break;
     case '403':
-        echo '<e class="error-content">403 Forbidden<br>(lol as if)</e><br>';
+        echo '<e class="error-content">403 Forbidden<br></e><br>';
         break;
     case '404':
         echo '<e class="error-content">404 Not Found</e><br>';
