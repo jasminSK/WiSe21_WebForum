@@ -1,8 +1,14 @@
 # protect .htaccess
 <Files .htaccess>
-order allow,deny
-deny from all
+    order allow,deny
+    deny from all
 </Files>
+
+# protect every hidden file
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
 
 # ErrorDocuments
 ErrorDocument 401 /forumsec/error.php?id=401
@@ -15,5 +21,5 @@ ErrorDocument 502 /forumsec/error.php?id=502
 ErrorDocument 503 /forumsec/error.php?id=503
 ErrorDocument 504 /forumsec/error.php?id=504
 
-# Disable directory browsing
+# disable directory browsing
 Options -Indexes

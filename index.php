@@ -1,12 +1,11 @@
 <?php
 // index.php
 
-include_once 'dbconnect.php';
 include 'header.php';
+include_once 'dbconnect.php';
 
-// if sid exists and login for sid exists
-session_start(); // gets session id 
-if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in 
+// if not logged in (session doesn't exist)
+if (session_id() == '' || !isset($_SESSION['signed_in'])) { 
     echo'
 
     <h1>Welcome to our forum - come join us!</h1><br>
@@ -47,7 +46,7 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
             $author = $_SESSION['user_id'];
 
             // prepearing statement to create post
-            $stmt = $conn->prepare("INSERT INTO post (title, content, author) VALUES (?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO `post` (`title`, `content`, `author`) VALUES (?, ?, ?)");
             
             //bind and execute
             $stmt->bind_param("ssi", $title, $text, $author);
@@ -108,9 +107,9 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
                 $sql_check = "SELECT `vote` FROM `user_post` WHERE `user_id` = '$user' AND `post_id` = '$post'";
                 if($res = mysqli_query($conn, $sql_check)){
                     if (mysqli_num_rows($res) == 0) { // if there is no upvote yet
-                        $sql_vote = "INSERT INTO `user_post` (`user_post_id`, `user_id`, `post_id`, `vote`) VALUES (NULL, '$user', '$post', '-1')";
+                        $sql_vote = "INSERT INTO `user_post` (`user_post_id`, `user_id`, `post_id`, `vote`) VALUES (NULL, '$user', '$post', '-1');";
                     }else{
-                        $sql_vote = "UPDATE `user_post` SET `vote` = '-1' WHERE `user_post`.`user_id` = '$user' AND `user_post`.`post_id` = '$post'";
+                        $sql_vote = "UPDATE `user_post` SET `vote` = '-1' WHERE `user_post`.`user_id` = '$user' AND `user_post`.`post_id` = '$post';";
                     }
                     mysqli_query($conn, $sql_vote);
                 }
@@ -129,11 +128,11 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
         // HTML - form for writing and sending post
         echo'
             <div class="createpost">
-            <form action="" method="post" id="submitpost">
-                <input type="text" id="title" name="title" value="" placeholder="Title" required><br>
-                <input type="text" id="text" name="text" value="" placeholder="Text" required><br>
-                <input type="submit" id="createpost" class="createpost" name="createpost" value="Create Post">
-            </form>
+                <form action="" method="post" id="submitpost">
+                    <input type="text" id="title" name="title" value="" placeholder="Title" required><br>
+                    <input type="text" id="text" name="text" value="" placeholder="Text" required><br>
+                    <input type="submit" id="createpost" class="createpost" name="createpost" value="Create Post">
+                </form>
             </div>
             <hr>
         ';
@@ -159,7 +158,7 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
 
             // Vote
             // TODO: use AJAX
-            $sql_vote = "SELECT SUM(vote) AS 'votes' FROM user_post WHERE post_id = $post_id;";
+            $sql_vote = "SELECT SUM(`vote`) AS 'votes' FROM `user_post` WHERE `post_id` = '$post_id';";
             $result = mysqli_query($conn, $sql_vote);
             $row = mysqli_fetch_array( $result, MYSQLI_ASSOC);
             

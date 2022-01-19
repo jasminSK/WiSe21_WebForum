@@ -1,2 +1,3 @@
 upload/*
 !upload/default.png
+!upload/.htaccess

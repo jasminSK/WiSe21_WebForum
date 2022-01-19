@@ -1,13 +1,12 @@
 <?php
-// index.php
+// login.php
 
-session_start(); //gets session id 
-include_once 'dbconnect.php';
 include 'header.php';
+include_once 'dbconnect.php';
+
 
 
 // action: login
-include_once 'dbconnect.php';
 if(isset($_POST['login']))
 {  
     $username = htmlspecialchars(mysqli_real_escape_string($conn, $_POST['username']));
@@ -49,7 +48,8 @@ echo '
         <input type="submit" name="login" value="Log In">
         <hr>
         <a href="/forumsec/register.php" class="button">Don\'t have an account yet?</a>
-    </form>';
+    </form>
+';
 
 include 'footer.php'
 ?>

@@ -1,12 +1,11 @@
 <?php
-// index.php
+// account.php
 
-include_once 'dbconnect.php';
 include 'header.php';
+include_once 'dbconnect.php';
 
-// if sid exists and login for sid exists
-session_start(); // gets session id 
-if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in 
+// if not logged in (session doesn't exist)
+if (session_id() == '' || !isset($_SESSION['signed_in'])) { 
     // redirect to startpage
     header('Refresh: 0; URL = /forumsec/');
 } else { // if logged in 
@@ -28,29 +27,28 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
     }
 
     echo "
-    <div class='account'>
+        <div class='account'>
 
-        <form action='' method='post' enctype='multipart/form-data'>
-            <h1>Account:</h1>
+            <form action='' method='post' enctype='multipart/form-data'>
+                <h1>Account:</h1>
 
-            <div class='profilepicture'>
-                <label for='file_to_upload'>
-                    <input type='file' name='file_to_upload' id='file_to_upload'>
-                    <img class='profile' src='$file_path'>
-                </label>
-                <div class='edit'><i class='material-icons'>edit</i></div>
-            </div>
+                <div class='profilepicture'>
+                    <label for='file_to_upload'>
+                        <input type='file' name='file_to_upload' id='file_to_upload'>
+                        <img class='profile' src='$file_path'>
+                    </label>
+                    <div class='edit'><i class='material-icons'>edit</i></div>
+                </div>
             
-            <br><br>
-            <b>$username</b><br>
-            $role<br>
+                <br><br>
+                <b>$username</b><br>
+                $role<br>
             
-            <input type='submit' value='Upload Image' name='submit_picture'>
-        </form>
-
+                <input type='submit' value='Upload Image' name='submit_picture'>
+            </form>
     ";
 
-    // PHP - Code for file upload
+    // profile picture upload
     // ATTENTION: The uploaded files will be saved in the directory "upload"
     if(isset($_POST["submit_picture"])) {
 
@@ -67,12 +65,12 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
                 <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
         ';
 
-        // Checks if file path has been selected
+        // checks if file path has been selected
         if(empty($target_file) || empty($file_type)){
             echo "Error: Please select a file first.<br>";
 
-        } else { //if file selected
-            // Checks if image is really an image
+        } else { // if file selected
+            // checks if image is really an image
             $check = getimagesize($_FILES["file_to_upload"]["tmp_name"]);
             if($check !== false) {
                 $upload_ok = 1;
@@ -81,26 +79,26 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
                 $upload_ok = 0;
             }
 
-            // Checks if file already exists
+            // checks if file already exists
             if (file_exists($target_file)) {
                 echo "Error: File already exists.<br>";
                 $upload_ok = 0;
             }
 
-            // Checks if file size > 500KB
+            // checks if file size > 500KB
             if ($_FILES["file_to_upload"]["size"] > 500000) {
                 echo "Error: File is too large.<br>";
                 $upload_ok = 0;
             }
 
-            // Allows only certain file formats
+            // allows only certain file formats
             if($file_type != "jpg" && $file_type != "png" && $file_type != "jpeg" && $file_type != "gif" ) {
                 echo "Error: Only JPG, JPEG, PNG & GIF files are allowed.<br>";
                 $upload_ok = 0;
             }
 
-            // Check if $upload_ok is set to 0 by an error
-            // Else, if everything is ok, try to upload file or send error message if something went wrong
+            // check if $upload_ok is set to 0 by an error
+            // else, if everything is ok, try to upload file or send error message if something went wrong
             if ($upload_ok == 0) {
                 echo "Error: Your file was not uploaded.<br>";
             } else {
@@ -126,11 +124,11 @@ if (session_id() == '' || !isset($_SESSION['signed_in'])) { // if not logged in
             
 
         }
-        echo '</div>';// end of alert
+        echo '</div>'; // end of alert
 
     }
 
-    echo'</div>';// end of account
+    echo'</div>'; // end of account
 
 }
 

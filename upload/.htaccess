@@ -1,0 +1,10 @@
+# protects every file
+deny from all
+
+# only allow pictures
+<FilesMatch ".(jpg|jpeg|png|gif)$">
+    allow from all
+</FilesMatch>
+
+# disable directory browsing
+Options -Indexes

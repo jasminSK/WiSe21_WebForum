@@ -1,8 +1,8 @@
 <?php
 // register.php
 
-include_once 'dbconnect.php';
 include 'header.php';
+include_once 'dbconnect.php';
 
 // action: register
 if(isset($_POST['register']))
@@ -62,17 +62,16 @@ if(isset($_POST['register']))
 }
 
 
-
-// html: register
+// html: register form
 echo '
-    <form action="" class="login_register" method="post">
-        <!--<h1>Register</h1>-->
-        <input type="text" id="username" name="username" value="" placeholder="Username" required><br>
-        <input type="password" id="password" name="password" value="" placeholder="Password" required><br>
-        <input type="submit" name="register" value="Register">
-        <hr>
-        <a href="/forumsec/login.php" class="button">Already have an account?</a>
-    </form>';
+        <form action="" class="login_register" method="post">
+            <input type="text" id="username" name="username" value="" placeholder="Username" required><br>
+            <input type="password" id="password" name="password" value="" placeholder="Password" required><br>
+            <input type="submit" name="register" value="Register">
+            <hr>
+            <a href="/forumsec/login.php" class="button">Already have an account?</a>
+        </form>
+    ';
 
 include 'footer.php';
 ?>
